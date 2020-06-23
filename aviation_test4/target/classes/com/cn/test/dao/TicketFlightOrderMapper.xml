@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.test.dao.TicketFlightOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.cn.test.entity.TicketFlightOrder" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="REAL" />
+    <result column="tourist" property="tourist" jdbcType="INTEGER" />
+    <result column="flight" property="flight" jdbcType="INTEGER" />
+    <result column="flight_payinfo" property="flightPayinfo" jdbcType="VARCHAR" />
+    <result column="orderdate" property="orderdate" jdbcType="DATE" />
+    <result column="cabin" property="cabin" jdbcType="VARCHAR" />
+    <result column="cutoff" property="cutoff" jdbcType="REAL" />
+    <result column="orderdisposetime" property="orderdisposetime" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, price, tourist, flight, flight_payinfo, orderdate, cabin, cutoff, orderdisposetime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cn.test.entity.TicketFlightOrderExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ticket_flight_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from ticket_flight_order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from ticket_flight_order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cn.test.entity.TicketFlightOrderExample" >
+    delete from ticket_flight_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cn.test.entity.TicketFlightOrder" >
+    insert into ticket_flight_order (id, price, tourist,
+      flight, flight_payinfo, orderdate,
+      cabin, cutoff, orderdisposetime
+      )
+    values (#{id,jdbcType=INTEGER}, #{price,jdbcType=REAL}, #{tourist,jdbcType=INTEGER},
+      #{flight,jdbcType=INTEGER}, #{flightPayinfo,jdbcType=VARCHAR}, #{orderdate,jdbcType=DATE},
+      #{cabin,jdbcType=VARCHAR}, #{cutoff,jdbcType=REAL}, #{orderdisposetime,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.test.entity.TicketFlightOrder" >
+    insert into ticket_flight_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="tourist != null" >
+        tourist,
+      </if>
+      <if test="flight != null" >
+        flight,
+      </if>
+      <if test="flightPayinfo != null" >
+        flight_payinfo,
+      </if>
+      <if test="orderdate != null" >
+        orderdate,
+      </if>
+      <if test="cabin != null" >
+        cabin,
+      </if>
+      <if test="cutoff != null" >
+        cutoff,
+      </if>
+      <if test="orderdisposetime != null" >
+        orderdisposetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=REAL},
+      </if>
+      <if test="tourist != null" >
+        #{tourist,jdbcType=INTEGER},
+      </if>
+      <if test="flight != null" >
+        #{flight,jdbcType=INTEGER},
+      </if>
+      <if test="flightPayinfo != null" >
+        #{flightPayinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderdate != null" >
+        #{orderdate,jdbcType=DATE},
+      </if>
+      <if test="cabin != null" >
+        #{cabin,jdbcType=VARCHAR},
+      </if>
+      <if test="cutoff != null" >
+        #{cutoff,jdbcType=REAL},
+      </if>
+      <if test="orderdisposetime != null" >
+        #{orderdisposetime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cn.test.entity.TicketFlightOrderExample" resultType="java.lang.Integer" >
+    select count(*) from ticket_flight_order
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ticket_flight_order
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=REAL},
+      </if>
+      <if test="record.tourist != null" >
+        tourist = #{record.tourist,jdbcType=INTEGER},
+      </if>
+      <if test="record.flight != null" >
+        flight = #{record.flight,jdbcType=INTEGER},
+      </if>
+      <if test="record.flightPayinfo != null" >
+        flight_payinfo = #{record.flightPayinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderdate != null" >
+        orderdate = #{record.orderdate,jdbcType=DATE},
+      </if>
+      <if test="record.cabin != null" >
+        cabin = #{record.cabin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cutoff != null" >
+        cutoff = #{record.cutoff,jdbcType=REAL},
+      </if>
+      <if test="record.orderdisposetime != null" >
+        orderdisposetime = #{record.orderdisposetime,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ticket_flight_order
+    set id = #{record.id,jdbcType=INTEGER},
+      price = #{record.price,jdbcType=REAL},
+      tourist = #{record.tourist,jdbcType=INTEGER},
+      flight = #{record.flight,jdbcType=INTEGER},
+      flight_payinfo = #{record.flightPayinfo,jdbcType=VARCHAR},
+      orderdate = #{record.orderdate,jdbcType=DATE},
+      cabin = #{record.cabin,jdbcType=VARCHAR},
+      cutoff = #{record.cutoff,jdbcType=REAL},
+      orderdisposetime = #{record.orderdisposetime,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.test.entity.TicketFlightOrder" >
+    update ticket_flight_order
+    <set >
+      <if test="price != null" >
+        price = #{price,jdbcType=REAL},
+      </if>
+      <if test="tourist != null" >
+        tourist = #{tourist,jdbcType=INTEGER},
+      </if>
+      <if test="flight != null" >
+        flight = #{flight,jdbcType=INTEGER},
+      </if>
+      <if test="flightPayinfo != null" >
+        flight_payinfo = #{flightPayinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderdate != null" >
+        orderdate = #{orderdate,jdbcType=DATE},
+      </if>
+      <if test="cabin != null" >
+        cabin = #{cabin,jdbcType=VARCHAR},
+      </if>
+      <if test="cutoff != null" >
+        cutoff = #{cutoff,jdbcType=REAL},
+      </if>
+      <if test="orderdisposetime != null" >
+        orderdisposetime = #{orderdisposetime,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.test.entity.TicketFlightOrder" >
+    update ticket_flight_order
+    set price = #{price,jdbcType=REAL},
+      tourist = #{tourist,jdbcType=INTEGER},
+      flight = #{flight,jdbcType=INTEGER},
+      flight_payinfo = #{flightPayinfo,jdbcType=VARCHAR},
+      orderdate = #{orderdate,jdbcType=DATE},
+      cabin = #{cabin,jdbcType=VARCHAR},
+      cutoff = #{cutoff,jdbcType=REAL},
+      orderdisposetime = #{orderdisposetime,jdbcType=DATE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap">
+      select * from ticket_flight_order
+    </select>
+  <select id="count" resultType="java.lang.Integer">
+    select count(*) from ticket_flight_order
+  </select>
+  <select id="selectID" resultType="int">
+  select max(ID) from ticket_flight_order
+</select>
+</mapper>

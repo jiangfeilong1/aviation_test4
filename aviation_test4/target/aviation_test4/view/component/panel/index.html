@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>面板</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="../../../layuiadmin/style/admin.css" media="all">
+  <style>
+    .div,table {
+      font-size: 30px;
+    }
+  </style>
+</head>
+<body>
+<div class="layui-fluid">
+  <div class="layui-row layui-col-space15">
+    <div class="layui-col-md12">
+      <div class="layui-card">
+        <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+          <div class="layui-form-item">
+            <div class="layui-inline">
+              <label class="layui-form-label">出发日期</label>
+              <div class="layui-input-block">
+                <input type="date" id="startdate3" name="startdate" placeholder="请输入" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-inline">
+              <label class="layui-form-label">到达日期</label>
+              <div class="layui-input-block">
+                <input type="date" id="enddate3" name="enddate" placeholder="请输入" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-inline">
+              <label class="layui-form-label">出发地</label>
+              <div class="layui-input-block">
+                <input type="text" id="start3" name="start" placeholder="请输入" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-inline">
+              <label class="layui-form-label">目的地</label>
+              <div class="layui-input-block">
+                <input type="text" id="destination3" name="destination" placeholder="请输入" autocomplete="off" class="layui-input">
+              </div>
+            </div>
+            <div class="layui-inline">
+              <button class="layui-btn layuiadmin-btn-admin" lay-submit lay-filter="LAY-user-back-search" id="LAY-user-back-search">
+                <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="layui-card-body">
+          <table class="layui-hide" id="demo" lay-filter="test"></table>
+
+          <script type="text/html" id="toolbarDemo">
+            <div class="layui-btn-container">
+              <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
+              <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
+              <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+            </div>
+          </script>
+
+          <script type="text/html" id="barDemo">
+            <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
+            <a class="layui-btn layui-btn-xs" lay-event="edit">购买</a>
+          </script>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="layui-row" id="view" style="display:none;">
+  <div class="layui-col-md10">
+    <form class="layui-form layui-from-pane" style="margin-top:20px" >
+      <div class="layui-form-item">
+        <div class="layui-inline">
+          <label class="layui-form-label">航空编号</label>
+          <div class="layui-input-block">
+            <input type="text" name="flightno" id="flightno1"  class="layui-input" disabled>
+          </div>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <div class="layui-inline">
+          <label class="layui-form-label">航空公司</label>
+          <div class="layui-input-block">
+            <input type="text" name="flightcompony" id="flightcompony1"  class="layui-input" disabled>
+          </div>
+        </div>
+        <div class="layui-inline">
+          <label class="layui-form-label">出发时间</label>
+          <div class="layui-input-block">
+            <input type="time" name="starttime" id="starttime1"   class="layui-input" disabled>
+          </div>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <div class="layui-inline">
+          <label class="layui-form-label">到达时间</label>
+          <div class="layui-input-block">
+            <input type="time" name="endtime" id="endtime1"  class="layui-input" disabled>
+          </div>
+        </div>
+        <div class="layui-inline">
+          <label class="layui-form-label">出发地</label>
+          <div class="layui-input-block">
+            <input type="text" name="start" id="start1"  class="layui-input" disabled>
+          </div>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <div class="layui-inline">
+          <label class="layui-form-label">目的地</label>
+          <div class="layui-input-block">
+            <input type="text" name="destination" id="destination1"   class="layui-input" disabled>
+          </div>
+        </div>
+        <div class="layui-inline">
+          <label class="layui-form-label">航班班机</label>
+          <div class="layui-input-block">
+            <input type="text" name="plane" id="plane1"  class="layui-input" disabled>
+          </div>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <div class="layui-inline">
+          <label class="layui-form-label">票价</label>
+          <div class="layui-input-block">
+            <input type="text" name="price" id="price1"  class="layui-input" disabled>
+          </div>
+        </div>
+        <div class="layui-inline">
+          <label class="layui-form-label">容量</label>
+          <div class="layui-input-block">
+            <input type="text" name="capability" id="capability1"   class="layui-input" disabled>
+          </div>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <div class="layui-inline">
+          <label class="layui-form-label">出发日期</label>
+          <div class="layui-input-block">
+            <input type="date" name="startdate" id="startdate1"  class="layui-input" disabled>
+          </div>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">到达日期</label>
+        <div class="layui-input-block">
+          <input type="date" name="enddate" id="enddate1"  class="layui-input" disabled>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="layui-row" id="edit" style="display:none;">
+  <div class="layui-col-md10">
+    <form class="layui-form layui-from-pane" style="margin-top:20px" >
+      <div class="layui-form-item">
+        <div class="layui-inline">
+          <label class="layui-form-label">航空编号</label>
+          <div class="layui-input-block">
+            <input type="text" name="flightno" id="flightno"  class="layui-input" disabled>
+          </div>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <div class="layui-inline">
+          <label class="layui-form-label">航空公司</label>
+          <div class="layui-input-block">
+            <input type="text" name="flightcompony" id="flightcompony"  class="layui-input" disabled>
+          </div>
+        </div>
+        <div class="layui-inline">
+          <label class="layui-form-label">出发时间</label>
+          <div class="layui-input-block">
+            <input type="time" name="starttime" id="starttime"   class="layui-input" disabled>
+          </div>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <div class="layui-inline">
+          <label class="layui-form-label">到达时间</label>
+          <div class="layui-input-block">
+            <input type="time" name="endtime" id="endtime"  class="layui-input" disabled>
+          </div>
+        </div>
+        <div class="layui-inline">
+          <label class="layui-form-label">出发地</label>
+          <div class="layui-input-block">
+            <input type="text" name="start" id="start"  class="layui-input" disabled>
+          </div>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <div class="layui-inline">
+          <label class="layui-form-label">目的地</label>
+          <div class="layui-input-block">
+            <input type="text" name="destination" id="destination"   class="layui-input" disabled>
+          </div>
+        </div>
+        <div class="layui-inline">
+          <label class="layui-form-label">航班班机</label>
+          <div class="layui-input-block">
+            <input type="text" name="plane" id="plane"  class="layui-input" disabled>
+          </div>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <div class="layui-inline">
+          <label class="layui-form-label">票价</label>
+          <div class="layui-input-block">
+            <input type="text" name="price" id="price"  class="layui-input" disabled>
+          </div>
+        </div>
+        <div class="layui-inline">
+          <label class="layui-form-label">容量</label>
+          <div class="layui-input-block">
+            <input type="text" name="capability" id="capability"   class="layui-input" disabled>
+          </div>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <div class="layui-inline">
+          <label class="layui-form-label">出发日期</label>
+          <div class="layui-input-block">
+            <input type="date" name="startdate" id="startdate"  class="layui-input" disabled>
+          </div>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">到达日期</label>
+        <div class="layui-input-block">
+          <input type="date" name="enddate" id="enddate"  class="layui-input" disabled>
+        </div>
+      </div>
+      <div class="layui-form-item" style="margin-top:40px">
+        <div class="layui-input-block">
+          <button class="layui-btn  layui-btn-submit " lay-submit="" lay-filter="formDemo1" >确认购买</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="layui-row" id="add1" style="display:none;">
+  <div class="layui-col-md10">
+    <form class="layui-form layui-from-pane" style="margin-top:20px" >
+      <div class="layui-form-item">
+        <div class="layui-inline">
+          <label class="layui-form-label">航空编号</label>
+          <div class="layui-input-block">
+            <input type="text" name="flightno" id="flightno2"  class="layui-input" required >
+          </div>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <div class="layui-inline">
+          <label class="layui-form-label">航空公司</label>
+          <div class="layui-input-block">
+            <input type="text" name="flightcompony" id="flightcompony2"  class="layui-input" required lay-verify="number">
+          </div>
+        </div>
+        <div class="layui-inline">
+          <label class="layui-form-label">出发时间</label>
+          <div class="layui-input-block">
+            <input type="time" name="starttime" id="starttime2"   class="layui-input" required>
+          </div>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <div class="layui-inline">
+          <label class="layui-form-label">到达时间</label>
+          <div class="layui-input-block">
+            <input type="time" name="endtime" id="endtime2"  class="layui-input" required>
+          </div>
+        </div>
+        <div class="layui-inline">
+          <label class="layui-form-label">出发地</label>
+          <div class="layui-input-block">
+            <select name="start" lay-verify="required" id="start2">
+              <option value=""></option>
+              <option value="北京">北京</option>
+              <option value="上海">上海</option>
+              <option value="广州">广州</option>
+              <option value="深圳">深圳</option>
+              <option value="长沙">长沙</option>
+              <option value="武汉">武汉</option>
+              <option value="南京">南京</option>
+              <option value="石家庄">石家庄</option>
+              <option value="南宁">南宁</option>
+              <option value="成都">成都</option>
+              <option value="兰州">兰州</option>
+              <option value="锦阳">锦阳</option>
+              <option value="哈尔滨">哈尔滨</option>
+              <option value="南昌">南昌</option>
+              <option value="贵阳">贵阳</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <div class="layui-inline">
+          <label class="layui-form-label">目的地</label>
+          <div class="layui-input-block">
+            <select name="destination" lay-verify="required" id="destination2">
+              <option value=""></option>
+              <option value="北京">北京</option>
+              <option value="上海">上海</option>
+              <option value="广州">广州</option>
+              <option value="深圳">深圳</option>
+              <option value="长沙">长沙</option>
+              <option value="武汉">武汉</option>
+              <option value="南京">南京</option>
+              <option value="石家庄">石家庄</option>
+              <option value="南宁">南宁</option>
+              <option value="成都">成都</option>
+              <option value="兰州">兰州</option>
+              <option value="锦阳">锦阳</option>
+              <option value="哈尔滨">哈尔滨</option>
+              <option value="南昌">南昌</option>
+              <option value="贵阳">贵阳</option>
+            </select>
+          </div>
+        </div>
+        <div class="layui-inline">
+          <label class="layui-form-label">航班班机</label>
+          <div class="layui-input-block">
+            <input type="text" name="plane" id="plane2"  class="layui-input" required lay-verify="number">
+          </div>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <div class="layui-inline">
+          <label class="layui-form-label">票价</label>
+          <div class="layui-input-block">
+            <input type="text" name="price" id="price2"  class="layui-input" required lay-verify="number">
+          </div>
+        </div>
+        <div class="layui-inline">
+          <label class="layui-form-label">容量</label>
+          <div class="layui-input-block">
+            <input type="text" name="capability" id="capability2"   class="layui-input" required lay-verify="number">
+          </div>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <div class="layui-inline">
+          <label class="layui-form-label">头等舱数量</label>
+          <div class="layui-input-block">
+            <input type="text" name="firstclass" id="firstclass2"  class="layui-input" required lay-verify="number">
+          </div>
+        </div>
+        <div class="layui-inline">
+          <label class="layui-form-label">商务舱数量</label>
+          <div class="layui-input-block">
+            <input type="text" name="businessclass" id="businessclass2"  class="layui-input" required lay-verify="number">
+          </div>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <div class="layui-inline">
+          <label class="layui-form-label">经济舱数量</label>
+          <div class="layui-input-block">
+            <input type="text" name="touristclass" id="touristclass2"   class="layui-input" required lay-verify="number">
+          </div>
+        </div>
+        <div class="layui-inline">
+          <label class="layui-form-label">出发日期</label>
+          <div class="layui-input-block">
+            <input type="date" name="startdate" id="startdate2"  class="layui-input" required>
+          </div>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">到达日期</label>
+        <div class="layui-input-block">
+          <input type="date" name="enddate" id="enddate2"  class="layui-input" required>
+        </div>
+      </div>
+      <div class="layui-form-item" style="margin-top:40px">
+        <div class="layui-input-block">
+          <button class="layui-btn  layui-btn-submit " lay-submit="" lay-filter="formDemo1" >确认添加</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<script src="../../../layuiadmin/layui/layui.js"></script>
+<script>
+  layui.config({
+    base: '../../../layuiadmin/' //静态资源所在路径
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index','table','layer','form'], function(){
+    const date = new Date();
+    const $ = layui.$
+            , admin = layui.admin
+            , layer = layui.layer
+            , form = layui.form
+            , router = layui.router()
+            , table = layui.table;
+
+    table.render({
+      elem: '#demo'
+      ,height: 312
+      ,url: '../../../test/page2' //数据接口
+      //,url: 'http://localhost:8080/aviation_test3_war/list2'
+      ,page: true //开启分页
+      ,toolbar: "#toolbarDemo"
+      ,cols: [[ //表头
+        {type: 'checkbox', fixed: 'left'}
+        ,{field: 'flightno', title: '航空编号', width:80}
+        ,{field: 'flightcompony', title: '航空公司', width:80}
+        ,{field: 'starttime', title: '出发时间', width:80, templet: function (d) {
+          date.setTime(d.starttime);
+          return date.Format("hh时mm分");
+          }}
+        ,{field: 'endtime', title: '到达时间', width:80, templet: function (d) {
+            date.setTime(d.endtime);
+            return date.Format("hh时mm分");
+          }}
+        ,{field: 'start', title: '出发地', width:80}
+        ,{field: 'destination', title: '目的地', width:80}
+        ,{field: 'plane', title: '航班班机', width:80}
+        ,{field: 'price', title: '票价', width:80, sort: true}
+        ,{field: 'capability', title: '容量', width:80, sort: true}
+        ,{field: 'startdate', title: '出发日期', width:80, templet: function (d) {
+            date.setTime(d.startdate);
+            return date.Format("yyyy-MM-dd");
+          }}
+        ,{field: 'enddate', title: '到达日期', width:80, templet: function (d) {
+            date.setTime(d.enddate);
+            return date.Format("yyyy-MM-dd");
+          }}
+        ,{fixed: 'right', width:150,title:'操作', align:'center', toolbar: '#barDemo'}
+      ]]
+      ,parseData: function (res) {
+        return {
+          "code": res.code,
+          "msg": res.msg,
+          "count": res.total,
+          "data": res.data
+        }
+      }
+      ,id: 'demo'
+    });
+    table.on('tool(test)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+      const data = obj.data; //获得当前行数据
+      const layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+      const tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
+      const date1 = new Date(data.startdate).Format("yyyy-MM-dd");
+      const date2 = new Date(data.enddate).Format("yyyy-MM-dd");
+      const time1 = new Date(data.starttime).Format("hh:mm");
+      const time2 = new Date(data.endtime).Format("hh:mm");
+
+      if(layEvent === 'detail'){ //查看
+        $("#flightno1").val(data.flightno);
+        $("#flightcompony1").val(data.flightcompony);
+        $("#starttime1").val(time1);
+        $("#endtime1").val(time2);
+        $("#start1").val(data.start);
+        $("#destination1").val(data.destination);
+        $("#plane1").val(data.plane);
+        $("#price1").val(data.price);
+        $("#capability1").val(data.capability);
+        $("#startdate1").val(date1);
+        $("#enddate1").val(date2);
+        layer.open({
+          type:1,
+          offset: '10px',
+          title:"查看",
+          area: ['520px', '400px'],
+          content: $("#view")
+        });
+      } else if(layEvent === 'del'){ //删除
+        layer.confirm('真的删除行么', function(index){
+          $.ajax({
+            url:'../../../test/delete2',
+            type:'GET',
+            data:{
+              id:data.id
+            },
+            success:function (res) {
+              if(res.code === 1){
+                layer.msg("删除成功");
+                setTimeout(function(){
+                  layer.closeAll();//关闭所有的弹出层
+                }, 1000);
+
+              }else{
+                layer.msg("删除失败");
+              }
+            }
+          })
+          obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+          layer.close(index);
+          //向服务端发送删除指令
+        });
+      } else if(layEvent === 'edit'){ //编辑
+        $("#flightno").val(data.flightno);
+        $("#flightcompony").val(data.flightcompony);
+        $("#starttime").val(time1);
+        $("#endtime").val(time2);
+        $("#start").val(data.start);
+        $("#destination").val(data.destination);
+        $("#plane").val(data.plane);
+        $("#price").val(data.price);
+        $("#capability").val(data.capability);
+        $("#startdate").val(date1);
+        $("#enddate").val(date2);
+        layer.open({
+          type:1,
+          offset: '10px',
+          title:"编辑",
+          area: ['520px', '400px'],
+          content: $("#edit")
+        });
+      } else if(layEvent === 'LAYTABLE_TIPS'){
+        layer.alert('Hi，头部工具栏扩展的右侧图标。');
+      }
+    });
+
+    //头工具栏事件
+    table.on('toolbar(test)', function(obj){
+      const checkStatus = table.checkStatus(obj.config.id);
+      let data;switch(obj.event){
+        case 'getCheckData':
+          data = checkStatus.data;
+          layer.alert(JSON.stringify(data));
+          break;
+        case 'getCheckLength':
+          data = checkStatus.data;
+          layer.msg('选中了：'+ data.length + ' 个');
+          break;
+        case 'isAll':
+          layer.msg(checkStatus.isAll ? '全选': '未全选');
+          break;
+        case 'add':
+          layer.open({
+            type:1,
+            offset: '10px',
+            title:"添加",
+            content: $("#add1")
+          });
+          break;
+      };
+    });
+    form.on('submit(formDemo)', function(data) {
+      $.ajax({
+        url:'../../../test/edit2', //'../../../edit2'
+        type:'post',
+        contentType:'application/json',
+        data:JSON.stringify(data.field),
+        success:function (res) {
+          if(res != null){
+            layer.closeAll('loading');
+            layer.load(2);
+            layer.msg("修改成功");
+            setTimeout(function(){
+              layer.closeAll();//关闭所有的弹出层
+              table.reload("demo");
+            }, 1000);
+          }else{
+            layer.msg("修改失败");
+          }
+        }
+      })
+      return false;
+    });
+    form.on('submit(formDemo1)', function(data) {
+      $.ajax({
+        url:'../../../test/addSessionFlight1',  //add接口
+        type:'post',
+        contentType:'application/json',
+        data:JSON.stringify(data.field),
+        success:function (res) {
+          if(res != null){
+            layer.closeAll('loading');
+            layer.load(2);
+            layer.msg("购买提交成功");
+            setTimeout(function(){
+              layer.closeAll();//关闭所有的弹出层
+              table.reload("demo");
+            }, 1000);
+          }else{
+            layer.msg("购买提交失败");
+          }
+        }
+      })
+      return false;
+    });
+    $('#LAY-user-back-search').on('click',function () {
+      table.reload('demo',{
+        url:'../../../test/selectFlight',
+        method : 'post',
+        page : {
+          curr : 1
+        },
+        where: {
+          destination : $('#destination3').val(),
+          startdate : $('#startdate3').val(),
+          enddate : $('#enddate3').val(),
+          start : $('#start3').val()
+        }
+      });
+      return false;
+    })
+    Date.prototype.Format = function (fmt){
+      const o = {
+        "M+": this.getMonth() + 1,                 //月份
+        "d+": this.getDate(),                    //日
+        "h+": this.getHours(),                   //小时
+        "m+": this.getMinutes(),                 //分
+        "s+": this.getSeconds(),                 //秒
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+        "S": this.getMilliseconds()             //毫秒
+      };
+      if(/(y+)/.test(fmt))
+        fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+      for(const k in o)
+        if(new RegExp("("+ k +")").test(fmt))
+          fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+      return fmt;
+    }
+  });
+</script>
+</body>
+</html>

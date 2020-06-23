@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>个人主页</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../layuiadmin/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="../../layuiadmin/style/admin.css" media="all">
+  <link rel="stylesheet" href="../../layuiadmin/style/template.css" media="all">
+  <style>
+    div,table {
+      font-size: 30px;
+    }
+  </style>
+</head>
+<body>
+<div class="layui-fluid">
+  <div class="layui-row layui-col-space15">
+    <div class="layui-col-md12">
+      <div class="layui-card">
+        <div class="layui-card-header" style="font-size: 30px">用户信息</div>
+        <div class="layui-card-body">
+          <table class="layui-hide" id="demo" lay-filter="test"></table>
+
+          <script type="text/html" id="toolbarDemo">
+            <div class="layui-btn-container">
+              <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
+              <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
+              <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+            </div>
+          </script>
+
+          <script type="text/html" id="barDemo">
+            <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+          </script>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="layui-row" id="view" style="display:none;">
+  <div class="layui-col-md10">
+    <form class="layui-form layui-from-pane" style="margin-top:20px" >
+      <div class="layui-form-item">
+        <label class="layui-form-label">用户名</label>
+        <div class="layui-input-block">
+          <input type="text" name="username" id="username"   class="layui-input" disabled>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">密码</label>
+        <div class="layui-input-block">
+          <input type="text" name="password" id="password"  class="layui-input" disabled>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">真实姓名</label>
+        <div class="layui-input-block">
+          <input type="text" name="realname" id="realname"  class="layui-input" disabled>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">邮箱</label>
+        <div class="layui-input-block">
+          <input type="text" name="email" id="email"   class="layui-input" disabled>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">用户描述</label>
+        <div class="layui-input-block">
+          <input type="text" name="description" id="description"  class="layui-input" disabled>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">用户电话</label>
+        <div class="layui-input-block">
+          <input type="text" name="phone" id="phone"  class="layui-input" disabled>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">用户地址</label>
+        <div class="layui-input-block">
+          <input type="text" name="address" id="address"   class="layui-input" disabled>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">提问问题</label>
+        <div class="layui-input-block">
+          <input type="text" name="question" id="question"  class="layui-input" disabled>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">提问答案</label>
+        <div class="layui-input-block">
+          <input type="text" name="answer" id="answer"  class="layui-input" disabled>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">所在省份</label>
+        <div class="layui-input-block">
+          <input type="text" name="province" id="province"   class="layui-input" disabled>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">所在城市</label>
+        <div class="layui-input-block">
+          <input type="text" name="city" id="city"  class="layui-input" disabled>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">注册日期</label>
+        <div class="layui-input-block">
+          <input type="date" name="regdate" id="regdate"  class="layui-input" disabled>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="layui-row" id="edit" style="display:none;">
+  <div class="layui-col-md10">
+    <form class="layui-form layui-from-pane" style="margin-top:20px" name="form1">
+      <div class="layui-form-item">
+        <label class="layui-form-label">用户名</label>
+        <div class="layui-input-block">
+          <input type="text" name="username" id="username1"   class="layui-input" disabled>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">密码</label>
+        <div class="layui-input-block">
+          <input type="text" name="password" id="password1"  class="layui-input" required >
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">真实姓名</label>
+        <div class="layui-input-block">
+          <input type="text" name="realname" id="realname1"  class="layui-input" required >
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">邮箱</label>
+        <div class="layui-input-block">
+          <input type="text" name="email" id="email1"   class="layui-input" required lay-verify="email">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">用户描述</label>
+        <div class="layui-input-block">
+          <input type="text" name="description" id="description1"  class="layui-input" >
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">用户电话</label>
+        <div class="layui-input-block">
+          <input type="text" name="phone" id="phone1"  class="layui-input" required lay-verify="phone">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">用户地址</label>
+        <div class="layui-input-block">
+          <input type="text" name="address" id="address1"   class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">提问问题</label>
+        <div class="layui-input-block">
+          <input type="text" name="question" id="question1"  class="layui-input" >
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">提问答案</label>
+        <div class="layui-input-block">
+          <input type="text" name="answer" id="answer1"  class="layui-input" >
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">所在省份</label>
+        <div class="layui-input-block">
+          <select name="province" lay-verify="required" id="province1" onchange="changeSelect()">
+            <option value="0"></option>
+            <option value="辽宁">辽宁</option>
+            <option value="吉林">吉林</option>
+            <option value="广东">广东</option>
+            <option value="湖南">湖南</option>
+            <option value="广西">广西</option>
+            <option value="福建">福建</option>
+            <option value="浙江">浙江</option>
+            <option value="河南">河南</option>
+            <option value="河北">河北</option>
+            <option value="湖北">湖北</option>
+            <option value="甘肃">甘肃</option>
+            <option value="江西">江西</option>
+            <option value="四川">四川</option>
+            <option value="江苏">江苏</option>
+            <option value="贵州">贵州</option>
+          </select>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">所在城市</label>
+        <div class="layui-input-block">
+          <select name="city" lay-verify="required" id="city1">
+            <option value=""></option>
+          </select>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">注册日期</label>
+        <div class="layui-input-block">
+          <input type="date" name="regdate" id="regdate1"  class="layui-input" >
+        </div>
+      </div>
+      <div class="layui-form-item" style="margin-top:40px">
+        <div class="layui-input-block">
+          <button class="layui-btn  layui-btn-submit " lay-submit="" lay-filter="formDemo" >确认修改</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<script src="../../layuiadmin/layui/layui.js"></script>
+<script>
+  const arr = [
+    ["沈阳", "大连", "鞍山", "抚顺", "本溪","丹东", "锦州", "营口", "辽阳", "朝阳"],
+    ["长春", "吉林市", "四平市", "辽源市", "本溪","丹东", "锦州", "营口", "辽阳", "朝阳"],
+    ["沈阳", "大连", "鞍山", "抚顺", "本溪","丹东", "锦州", "营口", "辽阳", "朝阳"],
+    ["长春", "吉林市", "四平市", "辽源市", "本溪","丹东", "锦州", "营口", "辽阳", "朝阳"],
+    ["沈阳", "大连", "鞍山", "抚顺", "本溪","丹东", "锦州", "营口", "辽阳", "朝阳"],
+    ["长春", "吉林市", "四平市", "辽源市", "本溪","丹东", "锦州", "营口", "辽阳", "朝阳"],
+    ["沈阳", "大连", "鞍山", "抚顺", "本溪","丹东", "锦州", "营口", "辽阳", "朝阳"],
+    ["长春", "吉林市", "四平市", "辽源市", "本溪","丹东", "锦州", "营口", "辽阳", "朝阳"],
+    ["沈阳", "大连", "鞍山", "抚顺", "本溪","丹东", "锦州", "营口", "辽阳", "朝阳"],
+    ["长春", "吉林市", "四平市", "辽源市", "本溪","丹东", "锦州", "营口", "辽阳", "朝阳"],
+    ["沈阳", "大连", "鞍山", "抚顺", "本溪","丹东", "锦州", "营口", "辽阳", "朝阳"],
+    ["长春", "吉林市", "四平市", "辽源市", "本溪","丹东", "锦州", "营口", "辽阳", "朝阳"],
+    ["沈阳", "大连", "鞍山", "抚顺", "本溪","丹东", "锦州", "营口", "辽阳", "朝阳"],
+    ["长春", "吉林市", "四平市", "辽源市", "本溪","丹东", "锦州", "营口", "辽阳", "朝阳"],
+    ["沈阳", "大连", "鞍山", "抚顺", "本溪","丹东", "锦州", "营口", "辽阳", "朝阳"],
+  ];
+
+  function changeSelect() {
+    const slt_project = document.form1.province;
+    const slt_area = document.form1.city;
+    const project_area = arr[slt_project.selectedIndex - 1];
+    slt_area.length = 1;
+    for(let i=0; i < project_area.length; i++){
+      slt_area[i+1] = new Option(project_area[i],project_area[i]);
+    }
+  }
+</script>
+<script>
+  layui.config({
+    base: '../../layuiadmin/' //静态资源所在路径
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index','table','layer','form'], function(){
+    const date = new Date();
+    const $ = layui.$
+            , admin = layui.admin
+            , layer = layui.layer
+            , form = layui.form
+            , router = layui.router()
+            , table = layui.table;
+
+    table.render({
+      elem: '#demo'
+      ,height: 312
+      ,url: '../../test/page5' //数据接口
+      //,url: 'http://localhost:8080/aviation_test3_war/list2'
+      ,page: true //开启分页
+      ,toolbar: "#toolbarDemo"
+      ,cols: [[ //表头
+        {type: 'checkbox', fixed: 'left'}
+        ,{field: 'username', title: '用户名', width:80, sort: true, fixed: 'left'}
+        ,{field: 'password', title: '密码', width:80}
+        ,{field: 'realname', title: '真实姓名', width:80}
+        ,{field: 'email', title: '邮箱', width:80}
+        ,{field: 'description', title: '用户描述', width:80}
+        ,{field: 'phone', title: '用户电话', width:80}
+        ,{field: 'address', title: '用户地址', width:80}
+        ,{field: 'question', title: '提问问题', width:80}
+        ,{field: 'answer', title: '提问答案', width:80}
+        ,{field: 'province', title: '所在省份', width:80}
+        ,{field: 'city', title: '所在城市', width:80}
+        ,{field: 'regdate', title: '注册日期', width:80, templet: function (d) {
+            date.setTime(d.regdate);
+            return date.Format("yyyy-MM-dd");
+          }}
+        ,{fixed: 'right', width:150,title:'操作', align:'center', toolbar: '#barDemo'}
+      ]]
+      ,parseData: function (res) {
+        return {
+          "code": res.code,
+          "msg": res.msg,
+          "count": res.total,
+          "data": res.data
+        }
+      }
+    });
+    table.on('tool(test)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+      const data = obj.data; //获得当前行数据
+      const layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+      const tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
+      const date1 = new Date(data.regdate).Format("yyyy-MM-dd");
+
+      if(layEvent === 'detail'){ //查看
+        $("#username").val(data.username);
+        $("#password").val(data.password);
+        $("#realname").val(data.realname);
+        $("#email").val(data.email);
+        $("#description").val(data.description);
+        $("#phone").val(data.phone);
+        $("#address").val(data.address);
+        $("#question").val(data.question);
+        $("#answer").val(data.answer);
+        $("#province").val(data.province);
+        $("#city").val(data.city);
+        $("#regdate").val(date1);
+        layer.open({
+          type:1,
+          offset: '10px',
+          title:"查看",
+          area: ['520px', '400px'],
+          content: $("#view")
+        });
+      } else if(layEvent === 'del'){ //删除
+        layer.confirm('真的删除行么', function(index){
+          $.ajax({
+            url:'../../test/delete5',
+            type:'GET',
+            data:{
+              username:data.username
+            },
+            success:function (res) {
+              if(res.code === 1){
+                layer.msg("删除成功");
+                setTimeout(function(){
+                  layer.closeAll();//关闭所有的弹出层
+                }, 1000);
+
+              }else{
+                layer.msg("删除失败");
+              }
+            }
+          })
+          obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+          layer.close(index);
+          //向服务端发送删除指令
+        });
+      } else if(layEvent === 'edit'){ //编辑
+        $("#username1").val(data.username);
+        $("#password1").val(data.password);
+        $("#realname1").val(data.realname);
+        $("#email1").val(data.email);
+        $("#description1").val(data.description);
+        $("#phone1").val(data.phone);
+        $("#address1").val(data.address);
+        $("#question1").val(data.question);
+        $("#answer1").val(data.answer);
+        $("#province1").val(data.province);
+        $("#city1").val(data.city);
+        $("#regdate1").val(date1);
+        layer.open({
+          type:1,
+          offset: '10px',
+          title:"编辑",
+          area: ['520px', '400px'],
+          content: $("#edit")
+        });
+      } else if(layEvent === 'LAYTABLE_TIPS'){
+        layer.alert('Hi，头部工具栏扩展的右侧图标。');
+      }
+    });
+
+    //头工具栏事件
+    table.on('toolbar(test)', function(obj){
+      const checkStatus = table.checkStatus(obj.config.id);
+      switch(obj.event){
+        case 'getCheckData':
+          let data = checkStatus.data;
+          layer.alert(JSON.stringify(data));
+          break;
+        case 'getCheckLength':
+          data = checkStatus.data;
+          layer.msg('选中了：'+ data.length + ' 个');
+          break;
+        case 'isAll':
+          layer.msg(checkStatus.isAll ? '全选': '未全选');
+          break;
+      };
+    });
+    form.on('submit(formDemo)', function(data) {
+      $.ajax({
+        url:'../../test/edit5',
+        type:'post',
+        contentType:'application/json',
+        data:JSON.stringify(data.field),
+        success:function (res) {
+          if(res != null){
+            layer.closeAll('loading');
+            layer.load(2);
+            layer.msg("修改成功");
+            setTimeout(function(){
+              layer.closeAll();//关闭所有的弹出层
+              table.reload("demo");
+            }, 1000);
+          }else{
+            layer.msg("修改失败");
+          }
+        }
+      })
+      return false;
+    })
+    Date.prototype.Format = function (fmt){
+      const o = {
+        "M+": this.getMonth() + 1,                 //月份
+        "d+": this.getDate(),                    //日
+        "h+": this.getHours(),                   //小时
+        "m+": this.getMinutes(),                 //分
+        "s+": this.getSeconds(),                 //秒
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+        "S": this.getMilliseconds()             //毫秒
+      };
+      if(/(y+)/.test(fmt))
+        fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+      for(const k in o)
+        if(new RegExp("("+ k +")").test(fmt))
+          fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+      return fmt;
+    }
+  });
+</script>
+</body>
+</html>

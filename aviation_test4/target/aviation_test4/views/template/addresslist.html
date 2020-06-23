@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>通讯录</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../layuiadmin/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="../../layuiadmin/style/admin.css" media="all">
+  <link rel="stylesheet" href="../../layuiadmin/style/template.css" media="all">
+  <style>
+    div,table {
+      font-size: 30px;
+    }
+  </style>
+</head>
+<body>
+<div class="layui-fluid">
+  <div class="layui-row layui-col-space15">
+    <div class="layui-col-md12">
+      <div class="layui-card">
+        <div class="layui-card-header" style="font-size: 30px">管理员信息</div>
+        <div class="layui-card-body">
+          <table class="layui-hide" id="demo" lay-filter="test"></table>
+
+          <script type="text/html" id="toolbarDemo">
+            <div class="layui-btn-container">
+              <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
+              <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
+              <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
+              <button class="layui-btn layui-btn-sm" lay-event="add">添加</button>
+            </div>
+          </script>
+
+          <script type="text/html" id="barDemo">
+            <a class="layui-btn layui-btn-xs" lay-event="detail">查看</a>
+            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+          </script>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="layui-row" id="view" style="display:none;">
+  <div class="layui-col-md10">
+    <form class="layui-form layui-from-pane" style="margin-top:20px" >
+      <div class="layui-form-item">
+        <label class="layui-form-label">管理员名</label>
+        <div class="layui-input-block">
+          <input type="text" name="username" id="username"   class="layui-input" disabled>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">密码</label>
+        <div class="layui-input-block">
+          <input type="text" name="password" id="password"  class="layui-input" disabled>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">真实姓名</label>
+        <div class="layui-input-block">
+          <input type="text" name="realname" id="realname"  class="layui-input" disabled>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">权限等级</label>
+        <div class="layui-input-block">
+          <input type="text" name="rank" id="rank"  class="layui-input" disabled>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">用户描述</label>
+        <div class="layui-input-block">
+          <input type="text" name="description" id="description"  class="layui-input" disabled>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="layui-row" id="edit" style="display:none;">
+  <div class="layui-col-md10">
+    <form class="layui-form layui-from-pane" style="margin-top:20px" >
+      <div class="layui-form-item">
+        <label class="layui-form-label">管理员名</label>
+        <div class="layui-input-block">
+          <input type="text" name="username" id="username1"   class="layui-input" disabled>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">密码</label>
+        <div class="layui-input-block">
+          <input type="text" name="password" id="password1"  class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">真实姓名</label>
+        <div class="layui-input-block">
+          <input type="text" name="realname" id="realname1"  class="layui-input" >
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">权限等级</label>
+        <div class="layui-input-block">
+          <input type="text" name="rank" id="rank1"  class="layui-input" >
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">用户描述</label>
+        <div class="layui-input-block">
+          <input type="text" name="description" id="description1"  class="layui-input" >
+        </div>
+      </div>
+      <div class="layui-form-item" style="margin-top:40px">
+        <div class="layui-input-block">
+          <button class="layui-btn  layui-btn-submit " lay-submit="" lay-filter="formDemo" >确认修改</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="layui-row" id="add1" style="display:none;">
+  <div class="layui-col-md10">
+    <form class="layui-form layui-from-pane" style="margin-top:20px" >
+      <div class="layui-form-item">
+        <label class="layui-form-label">管理员名</label>
+        <div class="layui-input-block">
+          <input type="text" name="username" id="username2"   class="layui-input" >
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">密码</label>
+        <div class="layui-input-block">
+          <input type="text" name="password" id="password2"  class="layui-input">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">真实姓名</label>
+        <div class="layui-input-block">
+          <input type="text" name="realname" id="realname2"  class="layui-input" >
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">权限等级</label>
+        <div class="layui-input-block">
+          <input type="text" name="rank" id="rank2"  class="layui-input" >
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">用户描述</label>
+        <div class="layui-input-block">
+          <input type="text" name="description" id="description2"  class="layui-input" >
+        </div>
+      </div>
+      <div class="layui-form-item" style="margin-top:40px">
+        <div class="layui-input-block">
+          <button class="layui-btn  layui-btn-submit " lay-submit="" lay-filter="formDemo1" >确认添加</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<script src="../../layuiadmin/layui/layui.js"></script>
+<script>
+  layui.config({
+    base: '../../layuiadmin/' //静态资源所在路径
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index','table','layer','form'], function(){
+    var $ = layui.$
+            ,admin = layui.admin
+            ,layer = layui.layer
+            ,form = layui.form
+            ,router = layui.router()
+            ,table = layui.table;
+
+    table.render({
+      elem: '#demo'
+      ,height: 312
+      ,url: '../../test/page6' //数据接口
+      //,url: 'http://localhost:8080/aviation_test3_war/list2'
+      ,page: true //开启分页
+      ,toolbar: "#toolbarDemo"
+      ,cols: [[ //表头
+        {type: 'checkbox', fixed: 'left'}
+        ,{field: 'username', title: '管理员名', width:80, sort: true, fixed: 'left'}
+        ,{field: 'password', title: '密码', width:80}
+        ,{field: 'realname', title: '真实姓名', width:80}
+        ,{field: 'rank', title: '权限等级', width:80}
+        ,{field: 'description', title: '用户描述', width:80}
+        ,{fixed: 'right', width:150,title:'操作', align:'center', toolbar: '#barDemo'}
+      ]]
+      ,parseData: function (res) {
+        return {
+          "code": res.code,
+          "msg": res.msg,
+          "count": res.total,
+          "data": res.data
+        }
+      }
+    });
+    table.on('tool(test)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+      var data = obj.data; //获得当前行数据
+      var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+      var tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
+
+      if(layEvent === 'detail'){ //查看
+        $("#username").val(data.username);
+        $("#password").val(data.password);
+        $("#rank").val(data.rank);
+        $("#realname").val(data.realname);
+        $("#description").val(data.description);
+        layer.open({
+          type:1,
+          offset: '10px',
+          title:"查看",
+          area: ['520px', '540px'],
+          content: $("#view")
+        });
+      } else if(layEvent === 'del'){ //删除
+        layer.confirm('真的删除行么', function(index){
+          $.ajax({
+            url:'../../test/delete6',
+            type:'GET',
+            data:{
+              username:data.username
+            },
+            success:function (res) {
+              if(res.code == 1){
+                layer.msg("删除成功");
+                setTimeout(function(){
+                  layer.closeAll();//关闭所有的弹出层
+                }, 1000);
+
+              }else{
+                layer.msg("删除失败");
+              }
+            }
+          })
+          obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+          layer.close(index);
+          //向服务端发送删除指令
+        });
+      } else if(layEvent === 'edit'){ //编辑
+        $("#username1").val(data.username);
+        $("#password1").val(data.password);
+        $("#rank1").val(data.rank);
+        $("#realname1").val(data.realname);
+        $("#description1").val(data.description);
+        layer.open({
+          type:1,
+          offset: '10px',
+          title:"编辑",
+          area: ['520px', '540px'],
+          content: $("#edit")
+        });
+      } else if(layEvent === 'LAYTABLE_TIPS'){
+        layer.alert('Hi，头部工具栏扩展的右侧图标。');
+      }
+    });
+
+    //头工具栏事件
+    table.on('toolbar(test)', function(obj){
+      var checkStatus = table.checkStatus(obj.config.id);
+      switch(obj.event){
+        case 'getCheckData':
+          var data = checkStatus.data;
+          layer.alert(JSON.stringify(data));
+          break;
+        case 'getCheckLength':
+          var data = checkStatus.data;
+          layer.msg('选中了：'+ data.length + ' 个');
+          break;
+        case 'isAll':
+          layer.msg(checkStatus.isAll ? '全选': '未全选');
+          break;
+        case 'add':
+          layer.open({
+            type:1,
+            offset: '10px',
+            title:"添加",
+            content: $("#add1")
+          });
+          break;
+      };
+    });
+    form.on('submit(formDemo)', function(data) {
+      $.ajax({
+        url:'../../test/edit6',
+        type:'post',
+        contentType:'application/json',
+        data:JSON.stringify(data.field),
+        success:function (res) {
+          if(res != null){
+            layer.closeAll('loading');
+            layer.load(2);
+            layer.msg("修改成功");
+            setTimeout(function(){
+              layer.closeAll();//关闭所有的弹出层
+              table.reload("demo");
+            }, 1000);
+          }else{
+            layer.msg("修改失败");
+          }
+        }
+      })
+      return false;
+    });
+    form.on('submit(formDemo1)', function(data) {
+      $.ajax({
+        url:'../../test/add3',
+        type:'post',
+        contentType:'application/json',
+        data:JSON.stringify(data.field),
+        success:function (res) {
+          if(res != null){
+            layer.closeAll('loading');
+            layer.load(2);
+            layer.msg("添加成功");
+            setTimeout(function(){
+              layer.closeAll();//关闭所有的弹出层
+              table.reload("demo");
+            }, 1000);
+          }else{
+            layer.msg("添加失败");
+          }
+        }
+      })
+      return false;
+    })
+  });
+</script>
+</body>
+</html>

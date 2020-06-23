@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.test.dao.TicketTotalInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.cn.test.entity.TicketTotalInfo" >
+    <result column="total" property="total" jdbcType="INTEGER" />
+    <result column="totalpc" property="totalpc" jdbcType="INTEGER" />
+    <result column="totalmobile" property="totalmobile" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    total, totalpc, totalmobile
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.cn.test.entity.TicketTotalInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ticket_total_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.cn.test.entity.TicketTotalInfoExample" >
+    delete from ticket_total_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cn.test.entity.TicketTotalInfo" >
+    insert into ticket_total_info (total, totalpc, totalmobile
+      )
+    values (#{total,jdbcType=INTEGER}, #{totalpc,jdbcType=INTEGER}, #{totalmobile,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.test.entity.TicketTotalInfo" >
+    insert into ticket_total_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="total != null" >
+        total,
+      </if>
+      <if test="totalpc != null" >
+        totalpc,
+      </if>
+      <if test="totalmobile != null" >
+        totalmobile,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="total != null" >
+        #{total,jdbcType=INTEGER},
+      </if>
+      <if test="totalpc != null" >
+        #{totalpc,jdbcType=INTEGER},
+      </if>
+      <if test="totalmobile != null" >
+        #{totalmobile,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cn.test.entity.TicketTotalInfoExample" resultType="java.lang.Integer" >
+    select count(*) from ticket_total_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update ticket_total_info
+    <set >
+      <if test="record.total != null" >
+        total = #{record.total,jdbcType=INTEGER},
+      </if>
+      <if test="record.totalpc != null" >
+        totalpc = #{record.totalpc,jdbcType=INTEGER},
+      </if>
+      <if test="record.totalmobile != null" >
+        totalmobile = #{record.totalmobile,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update ticket_total_info
+    set total = #{record.total,jdbcType=INTEGER},
+      totalpc = #{record.totalpc,jdbcType=INTEGER},
+      totalmobile = #{record.totalmobile,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap">
+      select * from ticket_total_info
+    </select>
+  <select id="count" resultType="java.lang.Integer">
+    select count(*) from ticket_total_info
+  </select>
+</mapper>

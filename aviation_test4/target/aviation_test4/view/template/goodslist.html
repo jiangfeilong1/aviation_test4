@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>商品列表</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../layuiadmin/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="../../layuiadmin/style/admin.css" media="all">
+  <link rel="stylesheet" href="../../layuiadmin/style/template.css" media="all">
+</head>
+<body>
+<div class="layui-fluid">
+  <div class="layui-row layui-col-space15">
+    <div class="layui-col-md12">
+      <div class="layui-card">
+        <div class="layui-card-header">个人账户余额</div>
+        <div class="layui-card-body" pad15>
+          <table class="layui-hide" id="demo" lay-filter="test"></table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="../../layuiadmin/layui/layui.js"></script>
+<script>
+  //Demo
+  layui.config({
+    base: '../../layuiadmin/' //静态资源所在路径
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['form','layer','index','set','table'], function(){
+    const $ = layui.$
+            , form = layui.form
+            , layer = layui.layer
+            , table = layui.table;
+
+    table.render({
+      elem: '#demo'
+      ,height: 100
+      ,url: '../../test/chakan' //数据接口
+      //,url: 'http://localhost:8080/aviation_test3_war/list2'
+      ,cols: [[ //表头
+        {field: 'id', title: 'ID', width:80, sort: true, fixed: 'left'}
+        ,{field: 'username', title: '用户名', width:80}
+        ,{field: 'zhanghu', title: '余额', width:80}
+      ]]
+      ,parseData: function (res) {
+        return {
+          "code": res.code,
+          "msg": res.msg,
+          "count": res.total,
+          "data": res.data
+        }
+      }
+    });
+    //监听提交
+    form.on('submit(formDemo)', function(data){
+      $.ajax({
+        url:'../../test/edit6',
+        type:'post',
+        contentType:'application/json',
+        data:JSON.stringify(data.field),
+        success:function (res) {
+          if(res != null){
+            layer.closeAll('loading');
+            layer.load(2);
+            layer.msg("修改成功");
+            setTimeout(function(){
+              layer.closeAll();//关闭所有的弹出层
+              table.reload("demo");
+            }, 1000);
+          }else{
+            layer.msg("修改失败");
+          }
+        }
+      })
+      return false;
+    });
+  });
+</script>
+</body>
+</html>

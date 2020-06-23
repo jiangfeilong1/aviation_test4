@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>进度条</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="../../../layuiadmin/style/admin.css" media="all">
+  <style>
+    .div,table {
+      font-size: 30px;
+    }
+  </style>
+</head>
+<body>
+<div class="layui-fluid">
+  <div class="layui-row layui-col-space15">
+    <div class="layui-col-md12">
+      <div class="layui-card">
+        <div class="layui-card-header" style="font-size: 30px">航班确认</div>
+        <div class="layui-card-body">
+          <div class="layui-form">
+            <div class="layui-form-item">
+              <div class="layui-inline">
+                <button class="layui-btn layuiadmin-btn-admin" lay-submit lay-filter="LAY-user-back-search" id="LAY-user-back-search">
+                  确定
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="layui-card">
+        <div class="layui-card-header">航班确认信息</div>
+        <div class="layui-card-body">
+          <table class="layui-hide" id="demo" lay-filter="test" ></table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="layui-row" id="view" style="display:none;">
+  <div class="layui-col-md10">
+    <form class="layui-form layui-from-pane" style="margin-top:20px" >
+      <div class="layui-form-item">
+        <label class="layui-form-label">ID</label>
+        <div class="layui-input-block">
+          <input type="text" name="id" id="id"   class="layui-input" disabled>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">班机名</label>
+        <div class="layui-input-block">
+          <input type="text" name="name" id="name"  class="layui-input" disabled>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">描述</label>
+        <div class="layui-input-block">
+          <textarea name="description" placeholder="请输入内容" class="layui-textarea" id="description" disabled></textarea>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="layui-row" id="edit" style="display:none;">
+  <div class="layui-col-md10">
+    <form class="layui-form layui-from-pane" style="margin-top:20px" >
+      <div class="layui-form-item">
+        <label class="layui-form-label">ID</label>
+        <div class="layui-input-block">
+          <input type="text" name="id" id="id1"   class="layui-input" disabled>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">班机名</label>
+        <div class="layui-input-block">
+          <input type="text" name="name" id="name1"  class="layui-input" >
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">描述</label>
+        <div class="layui-input-block">
+          <textarea name="description" placeholder="请输入内容" class="layui-textarea" id="description1"></textarea>
+        </div>
+      </div>
+      <div class="layui-form-item" style="margin-top:40px">
+        <div class="layui-input-block">
+          <button class="layui-btn  layui-btn-submit " lay-submit="" lay-filter="formDemo" >确认修改</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="layui-row" id="add1" style="display:none;">
+  <div class="layui-col-md10">
+    <form class="layui-form layui-from-pane" style="margin-top:20px" >
+      <div class="layui-form-item">
+        <label class="layui-form-label">班机名</label>
+        <div class="layui-input-block">
+          <input type="text" name="name" id="name2"  class="layui-input" >
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label">描述</label>
+        <div class="layui-input-block">
+          <textarea name="description" placeholder="请输入内容" class="layui-textarea" id="description2"></textarea>
+        </div>
+      </div>
+      <div class="layui-form-item" style="margin-top:40px">
+        <div class="layui-input-block">
+          <button class="layui-btn  layui-btn-submit " lay-submit="" lay-filter="formDemo1" >确认添加</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<script src="../../../layuiadmin/layui/layui.js"></script>
+<script>
+  layui.config({
+    base: '../../../layuiadmin/' //静态资源所在路径
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index','table','layer','form'], function(){
+    const date = new Date();
+    const $ = layui.$
+            , admin = layui.admin
+            , layer = layui.layer
+            , form = layui.form
+            , router = layui.router()
+            , table = layui.table;
+
+    table.render({
+      elem: '#demo'
+      ,height: 312
+      ,url: '../../../test/addSessionFlight2' //数据接口
+      //,url: 'http://localhost:8080/aviation_test3_war/list2'
+      ,page: true //开启分页
+      ,cols: [[ //表头
+        {type: 'checkbox', fixed: 'left'}
+        ,{field: 'flightno', title: '航空编号', width:80}
+        ,{field: 'flightcompony', title: '航空公司', width:80}
+        ,{field: 'starttime', title: '出发时间', width:80, templet: function (d) {
+            date.setTime(d.starttime);
+            return date.Format("hh时mm分");
+          }}
+        ,{field: 'endtime', title: '到达时间', width:80, templet: function (d) {
+            date.setTime(d.endtime);
+            return date.Format("hh时mm分");
+          }}
+        ,{field: 'start', title: '出发地', width:80}
+        ,{field: 'destination', title: '目的地', width:80}
+        ,{field: 'plane', title: '航班班机', width:80}
+        ,{field: 'price', title: '票价', width:80, sort: true}
+        ,{field: 'capability', title: '容量', width:80, sort: true}
+        ,{field: 'startdate', title: '出发日期', width:80, templet: function (d) {
+            date.setTime(d.startdate);
+            return date.Format("yyyy-MM-dd");
+          }}
+        ,{field: 'enddate', title: '到达日期', width:80, templet: function (d) {
+            date.setTime(d.enddate);
+            return date.Format("yyyy-MM-dd");
+          }}
+      ]]
+      ,parseData: function (res) {
+        return {
+          "code": res.code,
+          "msg": res.msg,
+          "count": res.total,
+          "data": res.data
+        }
+      }
+      ,id: 'demo'
+    });
+    table.on('tool(test)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+      var data = obj.data; //获得当前行数据
+      var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+      var tr = obj.tr; //获得当前行 tr 的 DOM 对象（如果有的话）
+
+      if(layEvent === 'detail'){ //查看
+        $("#id").val(data.id);
+        $("#name").val(data.name);
+        $("#description").val(data.description);
+        layer.open({
+          type:1,
+          offset: '10px',
+          title:"查看",
+          content: $("#view")
+        });
+      } else if(layEvent === 'del'){ //删除
+        layer.confirm('真的删除行么', function(index){
+          $.ajax({
+            url:'../../../test/delete1',
+            type:'GET',
+            data:{
+              id:data.id
+            },
+            success:function (res) {
+              if(res.code == 1){
+                layer.msg("删除成功");
+                setTimeout(function(){
+                  layer.closeAll();//关闭所有的弹出层
+                }, 1000);
+
+              }else{
+                layer.msg("删除失败");
+              }
+            }
+          })
+          obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+          layer.close(index);
+          //向服务端发送删除指令
+        });
+      } else if(layEvent === 'edit'){ //编辑
+        $("#id1").val(data.id);
+        $("#name1").val(data.name);
+        $("#description1").val(data.description);
+        layer.open({
+          type:1,
+          offset: '10px',
+          title:"编辑",
+          content: $("#edit")
+        });
+      } else if(layEvent === 'LAYTABLE_TIPS'){
+        layer.alert('Hi，头部工具栏扩展的右侧图标。');
+      }
+    });
+
+    //头工具栏事件
+    table.on('toolbar(test)', function(obj){
+      var checkStatus = table.checkStatus(obj.config.id);
+      switch(obj.event){
+        case 'getCheckData':
+          var data = checkStatus.data;
+          layer.alert(JSON.stringify(data));
+          break;
+        case 'getCheckLength':
+          var data = checkStatus.data;
+          layer.msg('选中了：'+ data.length + ' 个');
+          break;
+        case 'isAll':
+          layer.msg(checkStatus.isAll ? '全选': '未全选');
+          break;
+        case 'add':
+          layer.open({
+            type:1,
+            offset: '10px',
+            title:"添加",
+            content: $("#add1")
+          });
+          break;
+      };
+    });
+    form.on('submit(formDemo)', function(data) {
+      $.ajax({
+        url:'../../../test/edit1',
+        type:'post',
+        contentType:'application/json',
+        data:JSON.stringify(data.field),
+        success:function (res) {
+          if(res != null){
+            layer.closeAll('loading');
+            layer.load(2);
+            layer.msg("修改成功");
+            setTimeout(function(){
+              layer.closeAll();//关闭所有的弹出层
+              table.reload("demo");
+            }, 1000);
+          }else{
+            layer.msg("修改失败");
+          }
+        }
+      })
+      return false;
+    });
+    form.on('submit(LAY-user-back-search)', function(data) {
+      $.ajax({
+        url:'../../../test/selectFlight1',
+        type:'post',
+        contentType:'application/json',
+        data:JSON.stringify(data.field),
+        success:function (res) {
+          if(res.code === 0){
+            layer.msg("选择成功");
+          }else{
+            layer.msg("选择失败");
+          }
+        }
+      })
+      return false;
+    })
+    Date.prototype.Format = function (fmt){
+      const o = {
+        "M+": this.getMonth() + 1,                 //月份
+        "d+": this.getDate(),                    //日
+        "h+": this.getHours(),                   //小时
+        "m+": this.getMinutes(),                 //分
+        "s+": this.getSeconds(),                 //秒
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+        "S": this.getMilliseconds()             //毫秒
+      };
+      if(/(y+)/.test(fmt))
+        fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+      for(const k in o)
+        if(new RegExp("("+ k +")").test(fmt))
+          fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+      return fmt;
+    }
+  });
+</script>
+</body>
+</html>

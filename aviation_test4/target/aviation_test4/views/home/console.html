@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>layuiAdmin 控制台主页一</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../layuiadmin/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="../../layuiadmin/style/admin.css" media="all">
+</head>
+<body>
+
+<div class="layui-fluid">
+  <div class="layui-row layui-col-space15">
+    <div class="layui-col-md4">
+      <div class="layui-card">
+        <div class="layui-card-header">
+          系统简介
+          <i class="layui-icon layui-icon-tips" lay-tips="要支持的噢" lay-offset="5"></i>
+        </div>
+        <div class="layui-card-body layui-text layadmin-text">
+          <p>随着计算机技术和网络技术的快速发展，信息化成为当前社会一个重要的特征，在信息化的推动下互联网技术和通讯技术等都在迅速发展，它们的发展对数以亿计的人的生活产生了重要影响。航空出行成为人们出行的首选，但如何设计与实现一个在线订票系统成为重中之重。</p>
+          <p>随着互联网技术不断发展，网上订购机票日益盛行。目前要网上航空订票可以去各大航空公司官网，比如中国南方航空官网：<a href="https://www.csair.com/cn/" target="_blank">https://www.csair.com/cn/</a>，也可以去携程网，万游网等等网站，这些网站不仅买机票，还有从出发到返回的全套服务，它们的业务范围涵盖酒店，机票，旅行线路的预订等等，像它们这些网站模式很符合时代和人们的需求，很容易得到用户的支持和拥护。</p>
+          <p>一个网上航空订票系统，实现用户管理，航班管理，订单管理，航班查询，订票业务的处理。</p>
+          <p>—— 蒋飞龙</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="layui-col-md4">
+      <div class="layui-card">
+        <div class="layui-card-header">
+          所用技术简介
+          <i class="layui-icon layui-icon-tips" lay-tips="要支持的噢" lay-offset="5"></i>
+        </div>
+        <div class="layui-card-body layui-text layadmin-text">
+          Spring:
+          <p>Spring是JavaEE编程领域的一个轻量级开源框架，该框架由一个叫Rod Jahnson的程序员在 2002 年最早提出并随后创建，是为了解决企业级编程开发中的复杂性，实现敏捷开发的应用型框架 。Spring是一个开源容器框架，它集成各类型的工具，通过核心的Bean factory实现了底层的类的实例化和生命周期的管理。在整个框架中，各类型的功能被抽象成一个个的 Bean，这样就可以实现各种功能的管理，包括动态加载和切面编程。</p>
+          SpringMVC:
+          <p>Spring MVC属于SpringFrameWork的后续产品，已经融合在Spring Web Flow里面。Spring 框架提供了构建 Web 应用程序的全功能 MVC 模块。使用 Spring 可插入的 MVC 架构，从而在使用Spring进行WEB开发时，可以选择使用Spring的Spring MVC框架或集成其他MVC开发框架，如Struts1(现在一般不用)，Struts 2(一般老项目使用)等。</p>
+          MyBatis:
+          <p>MyBatis 是一款优秀的持久层框架，它支持定制化 SQL、存储过程以及高级映射。MyBatis 避免了几乎所有的 JDBC 代码和手动设置参数以及获取结果集。MyBatis 可以使用简单的 XML 或注解来配置和映射原生信息，将接口和 Java 的 POJOs(Plain Ordinary Java Object,普通的 Java对象)映射成数据库中的记录。</p>
+          Layui:
+          <p>事实上，layui更多是面向于后端开发者，所以在组织形式上毅然采用了几年前的以浏览器为宿主的类 AMD 模块管理方式，却又并非受限于 CommonJS 的那些条条框框，它拥有自己的模式，更加轻量和简单。layui 定义为“经典模块化”，并非是刻意强调“模块”理念本身，而是有意避开当下 JS 社区的主流方案，试图以尽可能简单的方式去诠释高效！它的所谓经典，是在于对返璞归真的执念，它以当前浏览器普通认可的方式去组织模块！ layui 认为这种轻量的组织方式，仍然可以填补 WebPack 以外的许多场景。所以它坚持采用经典模块化，也正是能让人避开工具的复杂配置，重新回归到原生态的 HTML/CSS/JavaScript本身</p>
+          <p>—— 蒋飞龙</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="../../layuiadmin/layui/layui.js?t=1"></script>
+  <script>
+  layui.config({
+    base: '../../layuiadmin/' //静态资源所在路径
+  }).extend({
+    index: 'lib/index' //主入口模块
+  }).use(['index', 'console']);
+  </script>
+</body>
+</html>
+
